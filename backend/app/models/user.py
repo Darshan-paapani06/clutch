@@ -30,3 +30,4 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     last_synced_at = Column(DateTime(timezone=True), nullable=True)
     activities = relationship("DailyActivity", back_populates="user")
+    weekly_insights = relationship("WeeklyInsight", back_populates="user")
