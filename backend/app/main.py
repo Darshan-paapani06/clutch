@@ -2,14 +2,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
-from app.routers import auth, github, users
+from app.routers import auth, github, users, insights
 from app.settings import settings
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Clutch API",
-    description="Developer activity dashboard — connecting you to your coding pulse.",
+    description="GitHub tracks your work. Clutch tracks you.",
     version="0.1.0",
 )
 
@@ -24,6 +24,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
 app.include_router(github.router, prefix="/github", tags=["GitHub"])
 app.include_router(users.router, prefix="/users", tags=["Users"])
+app.include_router(insights.router, prefix="/insights", tags=["Insights"])
 
 
 @app.get("/")
