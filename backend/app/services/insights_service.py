@@ -131,4 +131,5 @@ Keep it casual and human, not corporate.
             },
             "consistency_score": consistency_score,
             "avg_daily_commits": avg_daily_commits,
-            "top_repos": [{"repo": r, "days_active": c} for r
+            "top_repos": [{"repo": r, "days_active": c} for r, c in top_repos],
+        }
