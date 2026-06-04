@@ -5,7 +5,7 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
-        "typer==0.12.5",
+        "typer==0.26.7",
         "httpx==0.27.2",
         "rich==13.8.1",
     ],
