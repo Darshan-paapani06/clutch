@@ -1,4 +1,4 @@
-import { GitBranch, GitCommit, BarChart3, Brain } from 'lucide-react'
+import { GitBranch, GitCommit, BarChart3, Brain, ArrowRight } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { Navigate } from 'react-router-dom'
 
@@ -9,147 +9,73 @@ export default function Landing() {
   if (user) return <Navigate to="/dashboard" replace />
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-
-      {/* Nav */}
-      <nav style={{
-        borderBottom: '1px solid var(--color-border)',
-        padding: '12px 24px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg)' }}>
+      <nav style={{ borderBottom: '1px solid var(--border)', padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(8px)', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '18px', fontWeight: '600' }}>⚡ Clutch</span>
+          <span style={{ fontSize: '20px' }}>⚡</span>
+          <span style={{ fontWeight: '600', fontSize: '16px', color: 'var(--text-primary)' }}>Clutch</span>
         </div>
-        <a href={`${API_URL}/auth/github`} className="btn-primary">
-          <GitBranch size={15} />
-          Sign in with GitHub
-        </a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: '13px', padding: '6px 12px' }}>GitHub</a>
+          <a href={`${API_URL}/auth/github`} className="btn-primary" style={{ fontSize: '13px', padding: '6px 14px' }}>
+            <GitBranch size={14} />
+            Sign in with GitHub
+          </a>
+        </div>
       </nav>
 
-      {/* Hero */}
-      <main style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '80px 24px',
-        textAlign: 'center',
-        maxWidth: '720px',
-        margin: '0 auto',
-        width: '100%',
-      }}>
-        <div className="badge badge-green" style={{ marginBottom: '24px' }}>
-          Open Source · Free Forever
-        </div>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '100px 32px 80px', textAlign: 'center' }}>
+        <div className="badge badge-blue" style={{ marginBottom: '28px' }}>Open Source · Free Forever</div>
 
-        <h1 style={{
-          fontSize: '48px',
-          fontWeight: '600',
-          lineHeight: '1.2',
-          marginBottom: '16px',
-          color: 'var(--color-text-primary)',
-          letterSpacing: '-0.5px',
-        }}>
-          GitHub tracks your work.
-          <br />
-          <span style={{ color: 'var(--color-accent)' }}>Clutch tracks you.</span>
+        <h1 style={{ fontSize: '56px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-1px', color: 'var(--text-primary)', marginBottom: '20px', maxWidth: '680px' }}>
+          GitHub tracks your work.{' '}
+          <span style={{ color: 'var(--accent-blue)' }}>Clutch tracks you.</span>
         </h1>
 
-        <p style={{
-          fontSize: '16px',
-          color: 'var(--color-text-secondary)',
-          maxWidth: '480px',
-          marginBottom: '32px',
-          lineHeight: '1.7',
-        }}>
-          Commit streaks, activity patterns, language breakdowns,
-          and AI-powered weekly insights — all in one place.
+        <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '480px', marginBottom: '36px', lineHeight: '1.7', fontWeight: '300' }}>
+          Commit streaks, activity patterns, language breakdowns, and AI-powered weekly insights — all in one place.
         </p>
 
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <a href={`${API_URL}/auth/github`} className="btn-primary" style={{ fontSize: '15px', padding: '10px 20px' }}>
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
+          <a href={`${API_URL}/auth/github`} className="btn-primary" style={{ fontSize: '15px', padding: '10px 22px' }}>
             <GitBranch size={16} />
             Get Started Free
+            <ArrowRight size={14} />
           </a>
-          <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: '15px', padding: '10px 20px' }}>
-            View on GitHub
-          </a>
+          <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: '15px', padding: '10px 20px' }}>View on GitHub</a>
         </div>
 
-        <p style={{
-          marginTop: '16px',
-          fontSize: '12px',
-          color: 'var(--color-text-muted)',
-          fontFamily: 'var(--font-mono)',
-        }}>
-          No credit card. No email required.
-        </p>
+        <p style={{ fontSize: '12px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>No credit card. No email required.</p>
 
-        {/* Features */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '12px',
-          marginTop: '64px',
-          width: '100%',
-        }}>
+        <div style={{ width: '100%', maxWidth: '800px', margin: '72px auto 0', borderTop: '1px solid var(--border)' }} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', marginTop: '0', width: '100%', maxWidth: '800px', background: 'var(--border)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden' }}>
           {[
-            {
-              icon: <GitCommit size={18} color="var(--color-accent)" />,
-              title: 'Commit Streaks',
-              desc: 'Track your daily consistency and never lose your streak.',
-            },
-            {
-              icon: <BarChart3 size={18} color="var(--color-accent)" />,
-              title: 'Activity Patterns',
-              desc: 'Discover your most productive days, repos and languages.',
-            },
-            {
-              icon: <Brain size={18} color="var(--color-accent)" />,
-              title: 'AI Insights',
-              desc: 'Weekly summaries that actually tell you something useful.',
-            },
+            { icon: <GitCommit size={18} color="var(--accent-orange)" />, title: 'Commit Streaks', desc: 'Track your daily consistency and never lose your streak again.' },
+            { icon: <BarChart3 size={18} color="var(--accent-blue)" />, title: 'Activity Patterns', desc: 'Discover your most productive days, repos and languages.' },
+            { icon: <Brain size={18} color="var(--accent-purple)" />, title: 'AI Insights', desc: 'Weekly summaries powered by Groq that actually tell you something useful.' },
           ].map((f) => (
-            <div key={f.title} className="card" style={{ textAlign: 'left' }}>
-              <div style={{ marginBottom: '10px' }}>{f.icon}</div>
-              <h3 style={{
-                fontSize: '14px',
-                fontWeight: '600',
-                marginBottom: '6px',
-                color: 'var(--color-text-primary)',
-              }}>
-                {f.title}
-              </h3>
-              <p style={{
-                fontSize: '13px',
-                color: 'var(--color-text-secondary)',
-                lineHeight: '1.6',
-              }}>
-                {f.desc}
-              </p>
+            <div key={f.title} style={{ background: 'var(--bg)', padding: '28px 24px', textAlign: 'left' }}>
+              <div style={{ marginBottom: '12px' }}>{f.icon}</div>
+              <h3 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '8px', color: 'var(--text-primary)' }}>{f.title}</h3>
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>{f.desc}</p>
             </div>
           ))}
         </div>
+
+        <div style={{ marginTop: '48px', background: 'var(--bg-secondary)', border: '1px solid var(--border)', borderRadius: '8px', padding: '20px 28px', maxWidth: '800px', width: '100%', textAlign: 'left' }}>
+          <p style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Also available as a CLI</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            {['$ pip install clutch-dev', '$ clutch streak', '🔥 Current Streak: 6 days', '$ clutch insight', '🧠 Strong week — 61 commits across 6 days...'].map((line, i) => (
+              <p key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: line.startsWith('$') ? 'var(--text-primary)' : line.startsWith('🔥') || line.startsWith('🧠') ? 'var(--accent-green)' : 'var(--text-secondary)' }}>{line}</p>
+            ))}
+          </div>
+        </div>
       </main>
 
-      {/* Footer */}
-      <footer style={{
-        borderTop: '1px solid var(--color-border)',
-        padding: '16px 24px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        color: 'var(--color-text-muted)',
-        fontSize: '12px',
-        fontFamily: 'var(--font-mono)',
-      }}>
+      <footer style={{ borderTop: '1px solid var(--border)', padding: '18px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '12px', fontFamily: 'var(--font-mono)' }}>
         <span>© 2026 Clutch — Open Source</span>
-        <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-text-muted)', textDecoration: 'none' }}>
-          Star on GitHub ⭐
-        </a>
+        <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Star on GitHub ⭐</a>
       </footer>
     </div>
   )
