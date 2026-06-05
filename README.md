@@ -222,6 +222,8 @@ or you can open console too if you dont get it in URL
 Command + Option + J (Mac)
 Control + Shift + J (Windows)
 ```
+<img width="1124" height="444" alt="Screenshot 2026-06-05 at 7 19 37 PM" src="https://github.com/user-attachments/assets/a42736ef-c0f5-4875-b534-7ad75cfcc7cd" />
+
 
 feed that token back to terminal and you will be logged in.
 <h5>Really sorry for the inconvenience in this one. I was not able to manage it all in 6 days.</h5>
