@@ -229,7 +229,11 @@ feed that token back to terminal and you will be logged in.
 <h5>Really sorry for the inconvenience in this one. I was not able to manage it all in 6 days.</h5>
 
 ---
+## Flow-Chart
+<img width="2247" height="1748" alt="CLUTCH_FLOWCHART" src="https://github.com/user-attachments/assets/5ef37c42-190e-4c66-82b1-f770683b5b04" />
+>I have tried my best to visualize flow still it remaied a little complex as the project grows will make it more accurate and compitable.
 
+---
 ## API Endpoints
 
 | Method | Endpoint | Description |
