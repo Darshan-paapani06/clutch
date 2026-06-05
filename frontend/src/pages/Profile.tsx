@@ -24,38 +24,39 @@ export default function Profile() {
   }, [username])
 
   if (notFound) return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', gap: '8px' }}>
-      <p style={{ fontSize: '20px', fontWeight: '600' }}>User not found</p>
-      <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>@{username} doesn't exist or has a private profile.</p>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', gap: '8px', background: 'var(--bg)' }}>
+      <p style={{ fontSize: '18px', fontWeight: '500', color: 'var(--text-primary)' }}>User not found</p>
+      <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>@{username} doesn't exist or has a private profile.</p>
     </div>
   )
 
   if (!profile) return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '13px' }}>Loading...</p>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: 'var(--bg)' }}>
+      <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>Loading...</p>
     </div>
   )
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
-      <nav style={{ borderBottom: '1px solid var(--border)', padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <nav style={{ borderBottom: '1px solid var(--border)', padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(10,10,10,0.95)', backdropFilter: 'blur(8px)' }}>
         <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'var(--text-primary)' }}>
-          <span style={{ fontSize: '16px' }}>◉</span>
-          <span style={{ fontWeight: '600', fontSize: '15px' }}>Clutch</span>
+          <span style={{ fontSize: '15px', color: 'var(--text-secondary)' }}>◉</span>
+          <span style={{ fontWeight: '500', fontSize: '15px', letterSpacing: '-0.2px' }}>Clutch</span>
         </a>
-        <a href="/dashboard" style={{ color: 'var(--text-muted)', fontSize: '13px', textDecoration: 'none', fontFamily: 'var(--font-mono)' }}>← Back to Dashboard</a>
+        <a href="/dashboard" style={{ color: 'var(--text-muted)', fontSize: '12px', textDecoration: 'none', fontFamily: 'var(--font-mono)' }}>← Back to Dashboard</a>
       </nav>
-      <div style={{ maxWidth: '680px', margin: '0 auto', padding: '60px 32px' }}>
-        <div className="card" style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
-          <img src={profile.avatar_url || ''} alt={profile.username} style={{ width: '80px', height: '80px', borderRadius: '50%', border: '1px solid var(--border)', flexShrink: 0 }} />
+
+      <div style={{ maxWidth: '640px', margin: '0 auto', padding: '60px 32px' }}>
+        <div className="card" style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+          <img src={profile.avatar_url || ''} alt={profile.username} style={{ width: '72px', height: '72px', borderRadius: '50%', border: '1px solid var(--border)', flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
-            <h1 style={{ fontSize: '22px', fontWeight: '600', marginBottom: '2px', letterSpacing: '-0.3px' }}>{profile.name || profile.username}</h1>
-            <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '13px', marginBottom: '10px' }}>@{profile.username}</p>
-            {profile.bio && <p style={{ color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '14px', lineHeight: '1.6' }}>{profile.bio}</p>}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', color: 'var(--text-muted)', fontSize: '13px' }}>
-              {profile.location && <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={13} />{profile.location}</span>}
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Users size={13} />{profile.followers} followers</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><BookOpen size={13} />{profile.public_repos} repos</span>
+            <h1 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '2px', letterSpacing: '-0.3px', color: 'var(--text-primary)' }}>{profile.name || profile.username}</h1>
+            <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '12px', marginBottom: '10px' }}>@{profile.username}</p>
+            {profile.bio && <p style={{ color: 'var(--text-secondary)', fontSize: '13px', marginBottom: '14px', lineHeight: '1.6' }}>{profile.bio}</p>}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', color: 'var(--text-muted)', fontSize: '12px' }}>
+              {profile.location && <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={12} />{profile.location}</span>}
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Users size={12} />{profile.followers} followers</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><BookOpen size={12} />{profile.public_repos} repos</span>
             </div>
           </div>
         </div>
