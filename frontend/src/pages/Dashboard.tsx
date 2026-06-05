@@ -102,7 +102,7 @@ export default function Dashboard() {
 
         <div style={{ marginBottom: '32px', paddingBottom: '24px', borderBottom: '1px solid var(--border)' }}>
           <h1 style={{ fontSize: '26px', fontWeight: '600', marginBottom: '4px', letterSpacing: '-0.5px' }}>
-            Hey, {user?.name || user?.username} 👋
+            Hey, {user?.name || user?.username}...!
           </h1>
           <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
             @{user?.username} · Last 30 days · <a href={`/u/${user?.username}`} style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>View public profile →</a>
