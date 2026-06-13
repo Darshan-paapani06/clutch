@@ -100,7 +100,23 @@ export default function LandingPage() {
             { icon: <Zap size={16} color="var(--neon-pink)" />, label: 'PATTERNS', title: 'Activity Patterns', desc: 'Discover your most productive days, repos and languages.', color: 'var(--neon-pink)' },
             { icon: <Terminal size={16} color="var(--neon-yellow)" />, label: 'AI INSIGHTS', title: 'Weekly Insights', desc: 'AI summaries powered by Groq that actually tell you something.', color: 'var(--neon-yellow)' },
           ].map((f) => (
-            <div key={f.label} className="panel" style={{ padding: '24px', borderColor: 'var(--border)', background: 'var(--bg-card)' }}>
+            <div
+              key={f.label}
+              className="panel"
+              style={{ padding: '24px', borderColor: 'var(--border)', background: 'var(--bg-card)', transition: 'transform 0.2s cubic-bezier(.22,.68,0,1.2), box-shadow 0.2s ease', cursor: 'default' }}
+              onMouseEnter={e => {
+                const el = e.currentTarget
+                el.style.transform = 'perspective(700px) rotateX(-5deg) rotateY(3deg) translateY(-6px) scale(1.02)'
+                el.style.boxShadow = `0 16px 40px rgba(0,0,0,0.55), 0 0 20px ${f.color}22`
+                el.style.borderColor = f.color
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget
+                el.style.transform = 'perspective(700px) rotateX(0) rotateY(0) translateY(0) scale(1)'
+                el.style.boxShadow = 'none'
+                el.style.borderColor = 'var(--border)'
+              }}
+            >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
                 {f.icon}
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: f.color, letterSpacing: '0.12em' }}>{f.label}</span>

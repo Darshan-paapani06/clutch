@@ -32,7 +32,20 @@ export default function UserProfilePage() {
       } />
 
       <div style={{ maxWidth: '640px', margin: '0 auto', padding: '48px 28px' }}>
-        <div className="panel panel-cyan" style={{ padding: '28px' }}>
+        <div
+          className="panel panel-cyan"
+          style={{ padding: '28px', transition: 'transform 0.2s cubic-bezier(.22,.68,0,1.2), box-shadow 0.2s ease', cursor: 'default' }}
+          onMouseEnter={e => {
+            const el = e.currentTarget
+            el.style.transform = 'perspective(800px) rotateX(-4deg) rotateY(3deg) translateY(-6px)'
+            el.style.boxShadow = '0 20px 48px rgba(0,0,0,0.6), 0 0 24px rgba(0,245,255,0.12)'
+          }}
+          onMouseLeave={e => {
+            const el = e.currentTarget
+            el.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)'
+            el.style.boxShadow = '0 0 12px rgba(0,245,255,0.08)'
+          }}
+        >
           <div className="panel-label">USER PROFILE</div>
           <div style={{ paddingTop: '20px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
             <img

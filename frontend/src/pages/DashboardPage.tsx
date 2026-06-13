@@ -9,6 +9,21 @@ import LoadingScreen from '../components/common/LoadingScreen'
 import TickerStrip from '../components/common/TickerStrip'
 import type { ActivitySummary, StreakSummary, WeeklyInsight } from '../types/dashboard.types'
 
+const panelHover = (accent: string) => ({
+  onMouseEnter: (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget
+    el.style.transform = 'perspective(900px) rotateX(-3deg) rotateY(2deg) translateY(-5px)'
+    el.style.boxShadow = `0 20px 48px rgba(0,0,0,0.6), 0 0 24px ${accent}22`
+    el.style.transition = 'transform 0.2s cubic-bezier(.22,.68,0,1.2), box-shadow 0.2s ease'
+  },
+  onMouseLeave: (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget
+    el.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateY(0)'
+    el.style.boxShadow = '0 0 12px rgba(0,245,255,0.08)'
+    el.style.transition = 'transform 0.2s cubic-bezier(.22,.68,0,1.2), box-shadow 0.2s ease'
+  },
+})
+
 export default function DashboardPage() {
   const { user, logout } = useAuthentication()
   const [activity, setActivity] = useState<ActivitySummary | null>(null)
@@ -80,13 +95,11 @@ export default function DashboardPage() {
 
         {/* Header */}
         <div style={{ marginBottom: '32px', borderLeft: '3px solid var(--neon-pink)', paddingLeft: '16px' }}>
-          <div className="pixel-heading pixel-heading-pink" style={{ fontSize: '11px', marginBottom: '6px' }}>
-            DASHBOARD
-          </div>
-          <h1 style={{ fontFamily: 'var(--font-ui)', fontWeight: 700, fontSize: '28px', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>
+          <div className="pixel-heading pixel-heading-pink" style={{ fontSize: '11px', marginBottom: '6px', fontWeight: 700 }}>DASHBOARD</div>
+          <h1 style={{ fontFamily: 'var(--font-ui)', fontWeight: 700, fontSize: '30px', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>
             {user?.name || user?.username}
           </h1>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px', fontWeight: 700 }}>
             @{user?.username} &nbsp;·&nbsp;
             <a href={`/u/${user?.username}`} style={{ color: 'var(--neon-cyan)', textDecoration: 'none' }}>PUBLIC PROFILE ↗</a>
           </div>
@@ -101,34 +114,42 @@ export default function DashboardPage() {
           <StatCard label="Active Days" value={streak?.total_active_days ?? '—'} icon={<Calendar size={12} />} color="cyan" />
         </div>
 
-        {/* Chart */}
-        <div className="panel panel-cyan" style={{ padding: '20px', marginBottom: '24px' }}>
-          <div className="panel-label">COMMIT ACTIVITY — LAST 14 DAYS</div>
+        {/* Chart panel */}
+        <div
+          className="panel panel-cyan"
+          style={{ padding: '20px', marginBottom: '24px', transition: 'transform 0.2s cubic-bezier(.22,.68,0,1.2), box-shadow 0.2s ease', cursor: 'default' }}
+          {...panelHover('var(--neon-cyan)')}
+        >
+          <div className="panel-label" style={{ fontWeight: 700 }}>COMMIT ACTIVITY — LAST 14 DAYS</div>
           <div style={{ paddingTop: '16px' }}>
             {chartData.length > 0 ? (
               <ResponsiveContainer width="100%" height={130}>
                 <BarChart data={chartData} barSize={10}>
-                  <XAxis dataKey="date" tick={{ fontSize: 10, fill: 'var(--text-muted)', fontFamily: 'Share Tech Mono' }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
-                  <Tooltip contentStyle={{ background: '#050508', border: '1px solid var(--neon-cyan)', fontFamily: 'Share Tech Mono', fontSize: '11px', color: 'var(--neon-cyan)' }} cursor={{ fill: 'rgba(0,245,255,0.05)' }} />
+                  <XAxis dataKey="date" tick={{ fontSize: 10, fill: 'var(--text-muted)', fontFamily: 'Share Tech Mono', fontWeight: 700 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: 'var(--text-muted)', fontWeight: 700 }} axisLine={false} tickLine={false} />
+                  <Tooltip contentStyle={{ background: '#050508', border: '1px solid var(--neon-cyan)', fontFamily: 'Share Tech Mono', fontSize: '11px', color: 'var(--neon-cyan)', fontWeight: 700 }} cursor={{ fill: 'rgba(0,245,255,0.05)' }} />
                   <Bar dataKey="commits" fill="var(--neon-cyan)" radius={[2, 2, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '32px 0' }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '32px 0', fontWeight: 700 }}>
                 {'>'} NO ACTIVITY DATA — RUN SYNC TO LOAD
               </p>
             )}
           </div>
         </div>
 
-        {/* AI Insight */}
-        <div className="panel panel-pink" style={{ padding: '20px' }}>
-          <div className="panel-label">AI WEEKLY INSIGHT — GROQ</div>
+        {/* AI Insight panel */}
+        <div
+          className="panel panel-pink"
+          style={{ padding: '20px', transition: 'transform 0.2s cubic-bezier(.22,.68,0,1.2), box-shadow 0.2s ease', cursor: 'default' }}
+          {...panelHover('var(--neon-pink)')}
+        >
+          <div className="panel-label" style={{ fontWeight: 700 }}>AI WEEKLY INSIGHT — GROQ</div>
           <div style={{ paddingTop: '20px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
             <Brain size={18} color="var(--neon-pink)" style={{ flexShrink: 0, marginTop: '2px' }} />
             <div style={{ flex: 1 }}>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.8, fontWeight: 600 }}>
                 {insight?.ai_summary || insight?.message || '> SYNC YOUR ACTIVITY FIRST TO GENERATE AI INSIGHTS.'}
               </p>
               {insight?.stats && (
@@ -139,8 +160,8 @@ export default function DashboardPage() {
                     { label: 'ACTIVE', value: `${insight.stats.active_days}/7` },
                   ].map(item => (
                     <div key={item.label}>
-                      <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '4px' }}>{item.label}</p>
-                      <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '12px', color: 'var(--neon-pink)' }}>{item.value}</p>
+                      <p style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.15em', marginBottom: '4px', fontWeight: 700 }}>{item.label}</p>
+                      <p style={{ fontFamily: 'var(--font-pixel)', fontSize: '12px', color: 'var(--neon-pink)', fontWeight: 700 }}>{item.value}</p>
                     </div>
                   ))}
                 </div>
