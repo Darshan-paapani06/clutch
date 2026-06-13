@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 import jwt
 
 from app.database import get_db
-from app.settings import settings
+from app.configuration import settings
 from app.models.user import User
 
 security = HTTPBearer()

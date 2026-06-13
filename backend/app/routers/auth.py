@@ -6,7 +6,7 @@ import jwt
 from datetime import datetime, timedelta
 
 from app.database import get_db
-from app.settings import settings
+from app.configuration import settings
 from app.models.user import User
 
 router = APIRouter()

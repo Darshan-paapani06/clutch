@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
 from app.routers import auth, github, users, insights
-from app.settings import settings
+from app.configuration import settings
 
 Base.metadata.create_all(bind=engine)
 

@@ -2,7 +2,7 @@ import httpx
 from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 
-from app.settings import settings
+from app.configuration import settings
 from app.models.user import User
 from app.models.activity import DailyActivity
 
