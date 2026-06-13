@@ -1,28 +1,24 @@
 import { GitBranch, GitCommit, BarChart3, Brain, ArrowRight } from 'lucide-react'
-import { useAuth } from '../context/AuthContext'
+import { useAuthentication } from '../hooks/useAuthentication'
 import { Navigate } from 'react-router-dom'
+import NavigationBar from '../components/layout/NavigationBar'
+import { API_BASE_URL, GITHUB_REPOSITORY_URL } from '../constants/config.constants'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
-
-export default function Landing() {
-  const { user } = useAuth()
+export default function LandingPage() {
+  const { user } = useAuthentication()
   if (user) return <Navigate to="/dashboard" replace />
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg)' }}>
-      <nav style={{ borderBottom: '1px solid var(--border)', padding: '14px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, background: 'rgba(10,10,10,0.95)', backdropFilter: 'blur(8px)', zIndex: 10 }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'var(--text-primary)' }}>
-          <span style={{ fontSize: '16px' }}>◉</span>
-          <span style={{ fontWeight: '500', fontSize: '15px', letterSpacing: '-0.2px' }}>Clutch</span>
-        </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: '13px', padding: '6px 12px' }}>GitHub</a>
-          <a href={`${API_URL}/auth/github`} className="btn-primary" style={{ fontSize: '13px', padding: '6px 14px' }}>
+      <NavigationBar rightContent={
+        <>
+          <a href={GITHUB_REPOSITORY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: '13px', padding: '6px 12px' }}>GitHub</a>
+          <a href={`${API_BASE_URL}/auth/github`} className="btn-primary" style={{ fontSize: '13px', padding: '6px 14px' }}>
             <GitBranch size={14} />
             Sign in with GitHub
           </a>
-        </div>
-      </nav>
+        </>
+      } />
 
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '100px 32px 80px', textAlign: 'center' }}>
 
@@ -39,12 +35,12 @@ export default function Landing() {
         </p>
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '16px' }}>
-          <a href={`${API_URL}/auth/github`} className="btn-primary" style={{ fontSize: '14px', padding: '10px 22px' }}>
+          <a href={`${API_BASE_URL}/auth/github`} className="btn-primary" style={{ fontSize: '14px', padding: '10px 22px' }}>
             <GitBranch size={15} />
             Get Started Free
             <ArrowRight size={13} />
           </a>
-          <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: '14px', padding: '10px 20px' }}>View on GitHub</a>
+          <a href={GITHUB_REPOSITORY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ fontSize: '14px', padding: '10px 20px' }}>View on GitHub</a>
         </div>
 
         <p style={{ fontSize: '12px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>No credit card. No email required.</p>
@@ -85,7 +81,7 @@ export default function Landing() {
 
       <footer style={{ borderTop: '1px solid var(--border)', padding: '18px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '12px', fontFamily: 'var(--font-mono)' }}>
         <span>© 2026 Clutch — Open Source</span>
-        <a href="https://github.com/laypatel13/clutch" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Star on GitHub ⭐</a>
+        <a href={GITHUB_REPOSITORY_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Star on GitHub ⭐</a>
       </footer>
     </div>
   )

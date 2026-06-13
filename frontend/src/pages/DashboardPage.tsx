@@ -1,68 +1,45 @@
 import { useState, useEffect } from 'react'
-import { useAuth } from '../context/AuthContext'
-import api from '../utils/api'
+import { useAuthentication } from '../hooks/useAuthentication'
+import httpClient from '../api/httpClient'
 import { GitCommit, GitPullRequest, Flame, Brain, RefreshCw, LogOut, BarChart3, Calendar } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
+import NavigationBar from '../components/layout/NavigationBar'
+import StatCard from '../components/common/StatCard'
+import LoadingScreen from '../components/common/LoadingScreen'
+import type { ActivitySummary, StreakSummary, WeeklyInsight } from '../types/dashboard.types'
 
-interface ActivityData {
-  total_commits: number
-  total_prs: number
-  total_issues: number
-  active_days: number
-  daily_activity: Array<{ date: string; commits: number; prs: number }>
-}
-
-interface StreakData {
-  current_streak: number
-  longest_streak: number
-  total_active_days: number
-}
-
-interface InsightData {
-  week_start: string
-  stats: { total_commits: number; total_prs: number; active_days: number; best_day: string }
-  ai_summary: string
-  generated_by: string
-  message?: string
-}
-
-export default function Dashboard() {
-  const { user, logout } = useAuth()
-  const [activity, setActivity] = useState<ActivityData | null>(null)
-  const [streak, setStreak] = useState<StreakData | null>(null)
-  const [insight, setInsight] = useState<InsightData | null>(null)
+export default function DashboardPage() {
+  const { user, logout } = useAuthentication()
+  const [activity, setActivity] = useState<ActivitySummary | null>(null)
+  const [streak, setStreak] = useState<StreakSummary | null>(null)
+  const [insight, setInsight] = useState<WeeklyInsight | null>(null)
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
 
-  useEffect(() => { fetchData() }, [])
+  useEffect(() => { fetchDashboardData() }, [])
 
-  const fetchData = async () => {
+  const fetchDashboardData = async () => {
     setLoading(true)
     try {
       const [activityRes, streakRes] = await Promise.all([
-        api.get('/github/activity?days=30'),
-        api.get('/github/streak'),
+        httpClient.get('/github/activity?days=30'),
+        httpClient.get('/github/streak'),
       ])
       setActivity(activityRes.data)
       setStreak(streakRes.data)
-      api.get('/insights/weekly').then(res => setInsight(res.data)).catch(() => {})
+      httpClient.get('/insights/weekly').then(res => setInsight(res.data)).catch(() => {})
     } catch (err) { console.error(err) }
     finally { setLoading(false) }
   }
 
   const handleSync = async () => {
     setSyncing(true)
-    await api.post('/github/sync').catch(() => {})
-    await fetchData()
+    await httpClient.post('/github/sync').catch(() => {})
+    await fetchDashboardData()
     setSyncing(false)
   }
 
-  if (loading) return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column', gap: '12px', background: 'var(--bg)' }}>
-      <span style={{ fontSize: '22px', color: 'var(--text-secondary)' }}>◉</span>
-      <p style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>Loading your activity...</p>
-    </div>
-  )
+  if (loading) return <LoadingScreen message="Loading your activity..." />
 
   const chartData = activity?.daily_activity
     ?.sort((a, b) => a.date.localeCompare(b.date))
@@ -79,12 +56,8 @@ export default function Dashboard() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
-      <nav style={{ borderBottom: '1px solid var(--border)', padding: '12px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, background: 'rgba(10,10,10,0.95)', backdropFilter: 'blur(8px)', zIndex: 10 }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: 'var(--text-primary)' }}>
-          <span style={{ fontSize: '15px', color: 'var(--text-secondary)' }}>◉</span>
-          <span style={{ fontWeight: '500', fontSize: '15px', letterSpacing: '-0.2px' }}>Clutch</span>
-        </a>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <NavigationBar rightContent={
+        <>
           <button onClick={handleSync} disabled={syncing} className="btn-ghost" style={{ fontSize: '13px', padding: '6px 12px' }}>
             <RefreshCw size={12} style={{ animation: syncing ? 'spin 1s linear infinite' : 'none' }} />
             {syncing ? 'Syncing...' : 'Sync'}
@@ -95,8 +68,8 @@ export default function Dashboard() {
           <button onClick={logout} className="btn-ghost" style={{ fontSize: '13px', padding: '6px 10px' }}>
             <LogOut size={12} />
           </button>
-        </div>
-      </nav>
+        </>
+      } />
 
       <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 32px' }}>
 
@@ -109,15 +82,9 @@ export default function Dashboard() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1px', background: 'var(--border)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden', marginBottom: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1px', background: 'var(--border)', border: '1px solid var(--border)', borderRadius: '8px', overflow: 'hidden', marginBottom: '16px' }}>
           {stats.map((s) => (
-            <div key={s.label} style={{ background: 'var(--bg-card)', padding: '18px 16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '10px', color: 'var(--text-muted)' }}>
-                {s.icon}
-                <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</span>
-              </div>
-              <div style={{ fontSize: '24px', fontWeight: '600', fontFamily: 'var(--font-mono)', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>{s.value}</div>
-            </div>
+            <StatCard key={s.label} label={s.label} value={s.value} icon={s.icon} />
           ))}
         </div>
 
@@ -150,7 +117,7 @@ export default function Dashboard() {
             {insight?.ai_summary || insight?.message || 'Sync your activity first to generate AI insights.'}
           </p>
           {insight?.stats && (
-            <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--border)', display: 'flex', gap: '24px' }}>
+            <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--border)', display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
               {[
                 { label: 'Best Day', value: insight.stats.best_day },
                 { label: 'Commits', value: insight.stats.total_commits },
