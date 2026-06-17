@@ -4,16 +4,22 @@ interface StatCardProps {
   label: string
   value: string | number
   icon?: ReactNode
-  color?: 'cyan' | 'pink' | 'yellow' | 'green'
+  color?: 'purple' | 'pink' | 'cyan' | 'green' | 'yellow'
 }
 
-const accentMap = { cyan: 'var(--neon-cyan)', pink: 'var(--neon-pink)', yellow: 'var(--neon-yellow)', green: 'var(--neon-green)' }
+const accentMap = {
+  purple: 'var(--accent-purple)',
+  pink: 'var(--accent-pink)',
+  cyan: 'var(--accent-cyan)',
+  green: 'var(--accent-green)',
+  yellow: 'var(--accent-yellow)',
+}
 
-export default function StatCard({ label, value, icon, color = 'cyan' }: StatCardProps) {
+export default function StatCard({ label, value, icon, color = 'purple' }: StatCardProps) {
   const accent = accentMap[color]
   return (
-    <div className="brut-card" style={{ padding: '18px 16px', borderColor: accent, boxShadow: `4px 4px 0px ${accent}` }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '10px' }}>
+    <div className="nb-card" style={{ padding: '16px', borderColor: accent, boxShadow: `4px 4px 0px ${accent}` }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
         <span style={{ color: accent }}>{icon}</span>
         <span className="stat-label">{label}</span>
       </div>

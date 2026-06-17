@@ -27,33 +27,32 @@ export default function UserProfilePage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
       <NavigationBar rightContent={
-        <a href="/dashboard" className="btn-brut btn-ghost" style={{ fontSize: '12px', padding: '7px 16px' }}>← Dashboard</a>
+        <a href="/dashboard" className="btn-nb btn-ghost" style={{ fontSize: '12px', padding: '6px 14px' }}>← Dashboard</a>
       } />
-
-      <div style={{ maxWidth: '640px', margin: '0 auto', padding: '60px 32px' }}>
+      <div style={{ maxWidth: '620px', margin: '0 auto', padding: '56px 32px' }}>
         <div className="section-label">Profile</div>
-        <div className="brut-panel-cyan" style={{ padding: '28px' }}>
+        <div className="nb-panel-purple" style={{ padding: '28px' }}>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-            <img src={profile.avatar_url || ''} alt={profile.username} style={{ width: '72px', height: '72px', border: '2px solid var(--neon-cyan)', flexShrink: 0 }} />
+            <img src={profile.avatar_url || ''} alt={profile.username} style={{ width: '72px', height: '72px', border: '2px solid var(--border)', flexShrink: 0 }} />
             <div style={{ flex: 1 }}>
-              <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '22px', marginBottom: '4px', color: 'var(--text-primary)' }}>
+              <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '22px', marginBottom: '2px', color: 'var(--text-primary)' }}>
                 {profile.name || profile.username}
               </h1>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--neon-cyan)', marginBottom: '12px' }}>@{profile.username}</p>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--accent-purple)', marginBottom: '12px' }}>@{profile.username}</p>
               {profile.bio && (
                 <p style={{ fontFamily: 'var(--font-ui)', fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: '1.7' }}>{profile.bio}</p>
               )}
               <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                 {profile.location && (
                   <span style={{ display: 'flex', alignItems: 'center', gap: '5px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)' }}>
-                    <MapPin size={12} color="var(--neon-yellow)" />{profile.location}
+                    <MapPin size={12} color="var(--accent-yellow)" />{profile.location}
                   </span>
                 )}
                 <span style={{ display: 'flex', alignItems: 'center', gap: '5px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)' }}>
-                  <Users size={12} color="var(--neon-pink)" />{profile.followers} followers
+                  <Users size={12} color="var(--accent-pink)" />{profile.followers} followers
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '5px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)' }}>
-                  <BookOpen size={12} color="var(--neon-cyan)" />{profile.public_repos} repos
+                  <BookOpen size={12} color="var(--accent-purple)" />{profile.public_repos} repos
                 </span>
               </div>
             </div>

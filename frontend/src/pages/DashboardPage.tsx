@@ -39,7 +39,7 @@ export default function DashboardPage() {
     setSyncing(false)
   }
 
-  if (loading) return <LoadingScreen message="Loading your activity..." />
+  if (loading) return <LoadingScreen message="Loading activity..." />
 
   const chartData = activity?.daily_activity
     ?.sort((a, b) => a.date.localeCompare(b.date))
@@ -50,45 +50,45 @@ export default function DashboardPage() {
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
       <NavigationBar rightContent={
         <>
-          <button onClick={handleSync} disabled={syncing} className="btn-brut btn-ghost" style={{ fontSize: '12px', padding: '7px 14px' }}>
+          <button onClick={handleSync} disabled={syncing} className="btn-nb btn-ghost" style={{ fontSize: '12px', padding: '6px 12px' }}>
             <RefreshCw size={12} style={{ animation: syncing ? 'spin 1s linear infinite' : 'none' }} />
             {syncing ? 'Syncing...' : 'Sync'}
           </button>
           <a href={`/u/${user?.username}`}>
-            <img src={user?.avatar_url || ''} alt={user?.username} style={{ width: '32px', height: '32px', border: '2px solid var(--border-dim)', cursor: 'pointer', display: 'block' }} />
+            <img src={user?.avatar_url || ''} alt={user?.username} style={{ width: '32px', height: '32px', border: '2px solid var(--border)', cursor: 'pointer', display: 'block' }} />
           </a>
-          <button onClick={logout} className="btn-brut btn-pink" style={{ fontSize: '12px', padding: '7px 12px' }}>
+          <button onClick={logout} className="btn-nb btn-pink" style={{ fontSize: '12px', padding: '6px 10px' }}>
             <LogOut size={12} />
           </button>
         </>
       } />
 
-      <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 32px' }}>
+      <div style={{ maxWidth: '960px', margin: '0 auto', padding: '36px 32px' }}>
 
-        {/* Header */}
-        <div style={{ marginBottom: '36px' }}>
+        {/* HEADER */}
+        <div style={{ marginBottom: '32px', paddingBottom: '24px', borderBottom: '2px solid var(--border)' }}>
           <div className="section-label">Dashboard</div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '34px', color: 'var(--text-primary)', letterSpacing: '-0.5px', marginBottom: '6px' }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '32px', color: 'var(--text-primary)', marginBottom: '4px' }}>
             {user?.name || user?.username}
           </h1>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)' }}>
             @{user?.username} · Last 30 days ·{' '}
-            <a href={`/u/${user?.username}`} style={{ color: 'var(--neon-cyan)', textDecoration: 'none' }}>Public profile →</a>
+            <a href={`/u/${user?.username}`} style={{ color: 'var(--accent-purple)', textDecoration: 'none' }}>Public profile →</a>
           </div>
         </div>
 
-        {/* Stats */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginBottom: '24px' }}>
-          <StatCard label="Commits" value={activity?.total_commits ?? '—'} icon={<GitCommit size={13} />} color="cyan" />
+        {/* STATS */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(155px, 1fr))', gap: '10px', marginBottom: '20px' }}>
+          <StatCard label="Commits" value={activity?.total_commits ?? '—'} icon={<GitCommit size={13} />} color="purple" />
           <StatCard label="Pull Requests" value={activity?.total_prs ?? '—'} icon={<GitPullRequest size={13} />} color="pink" />
           <StatCard label="Streak" value={streak ? `${streak.current_streak}d` : '—'} icon={<Flame size={13} />} color="yellow" />
-          <StatCard label="Best Streak" value={streak ? `${streak.longest_streak}d` : '—'} icon={<BarChart3 size={13} />} color="green" />
-          <StatCard label="Active Days" value={streak?.total_active_days ?? '—'} icon={<Calendar size={13} />} color="cyan" />
+          <StatCard label="Best Streak" value={streak ? `${streak.longest_streak}d` : '—'} icon={<BarChart3 size={13} />} color="cyan" />
+          <StatCard label="Active Days" value={streak?.total_active_days ?? '—'} icon={<Calendar size={13} />} color="green" />
         </div>
 
-        {/* Chart */}
-        <div className="brut-panel-cyan" style={{ padding: '24px', marginBottom: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        {/* CHART */}
+        <div className="nb-panel-purple" style={{ padding: '22px', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px' }}>
             <span className="section-label" style={{ marginBottom: 0 }}>Commit Activity</span>
             <span className="tag tag-outline">Last 14 days</span>
           </div>
@@ -97,8 +97,8 @@ export default function DashboardPage() {
               <BarChart data={chartData} barSize={10}>
                 <XAxis dataKey="date" tick={{ fontSize: 11, fill: 'var(--text-muted)', fontFamily: 'JetBrains Mono' }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fontSize: 11, fill: 'var(--text-muted)', fontFamily: 'JetBrains Mono' }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ background: 'var(--bg)', border: '2px solid var(--neon-cyan)', borderRadius: 0, fontFamily: 'JetBrains Mono', fontSize: '12px', color: 'var(--neon-cyan)', boxShadow: '4px 4px 0px var(--neon-cyan)' }} cursor={{ fill: 'rgba(0,245,255,0.05)' }} />
-                <Bar dataKey="commits" fill="var(--neon-cyan)" radius={[2, 2, 0, 0]} />
+                <Tooltip contentStyle={{ background: 'var(--bg-card)', border: '2px solid var(--accent-purple)', borderRadius: 0, fontFamily: 'JetBrains Mono', fontSize: '12px', color: 'var(--text-primary)', boxShadow: '4px 4px 0px var(--accent-purple)' }} cursor={{ fill: 'rgba(124,58,237,0.06)' }} />
+                <Bar dataKey="commits" fill="var(--accent-purple)" radius={[2, 2, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
@@ -108,20 +108,20 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* AI Insight */}
-        <div className="brut-panel-pink" style={{ padding: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+        {/* AI INSIGHT */}
+        <div className="nb-panel-pink" style={{ padding: '22px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
             <span className="section-label" style={{ marginBottom: 0 }}>Weekly AI Insight</span>
-            <span className="tag tag-pink">Groq</span>
+            <span className="tag tag-pink" style={{ marginLeft: 'auto' }}>Groq</span>
           </div>
           <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-            <Brain size={18} color="var(--neon-pink)" style={{ flexShrink: 0, marginTop: '3px' }} />
+            <Brain size={18} color="var(--accent-pink)" style={{ flexShrink: 0, marginTop: '3px' }} />
             <div style={{ flex: 1 }}>
               <p style={{ fontFamily: 'var(--font-ui)', fontSize: '14px', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
                 {insight?.ai_summary || insight?.message || 'Sync your activity first to generate AI insights.'}
               </p>
               {insight?.stats && (
-                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--border-dim)', display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
+                <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px solid var(--border-light)', display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
                   {[
                     { label: 'Best Day', value: insight.stats.best_day },
                     { label: 'Commits', value: insight.stats.total_commits },
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                   ].map(item => (
                     <div key={item.label}>
                       <p className="stat-label" style={{ marginBottom: '4px' }}>{item.label}</p>
-                      <p style={{ fontFamily: 'var(--font-mono)', fontSize: '16px', fontWeight: 700, color: 'var(--neon-pink)' }}>{item.value}</p>
+                      <p style={{ fontFamily: 'var(--font-mono)', fontSize: '16px', fontWeight: 700, color: 'var(--accent-pink)' }}>{item.value}</p>
                     </div>
                   ))}
                 </div>
@@ -137,7 +137,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   )
