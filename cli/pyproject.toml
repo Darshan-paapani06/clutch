@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clutch-dev"
+version = "0.2.0"
+description = "GitHub tracks your work. Clutch tracks you."
+license = { text = "MIT" }
+authors = [{ name = "Lay Patel", email = "lay.patel.1313@gmail.com" }]
+requires-python = ">=3.11"
+keywords = ["github", "developer", "activity", "cli", "dashboard", "streak"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Version Control :: Git",
+]
+dependencies = [
+    "typer>=0.12.0",
+    "httpx>=0.27.0",
+    "rich>=13.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/laypatel13/clutch"
+"Bug Tracker" = "https://github.com/laypatel13/clutch/issues"
+
+[project.scripts]
+clutch = "clutch_cli.main:app"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["clutch_cli*"]
