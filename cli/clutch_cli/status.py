@@ -1,8 +1,8 @@
 import httpx
 import typer
 from rich.console import Console
-from rich.panel import Panel
-
+from rich.table import Table
+from rich import box
 from clutch_cli.config import API_BASE_URL, get_token, get_username
 
 console = Console()
@@ -13,16 +13,25 @@ def status():
     username = get_username()
     token = get_token()
 
+    console.print()
+    console.rule("[bold blue]⚡ CLUTCH — STATUS[/bold blue]")
+    console.print()
+
+    table = Table(box=box.SIMPLE, show_header=False, pad_edge=False)
+    table.add_column("Check", style="dim", width=18)
+    table.add_column("Result", style="bold white")
+
     if not username or not token:
-        console.print(Panel(
-            "[red]✗[/red] Not logged in\n"
-            "[dim]Run: clutch auth login[/dim]",
-            title="[bold]Clutch — Status[/bold]",
-            border_style="red",
-        ))
+        table.add_row("Auth", "[red]Not logged in[/red]")
+        table.add_row("Hint", "[dim]Run: clutch auth login[/dim]")
+        console.print(table)
+        console.print()
+        console.rule(style="dim")
+        console.print()
         raise typer.Exit()
 
-    # Check API health
+    table.add_row("User", f"[blue]@{username}[/blue]")
+
     try:
         response = httpx.get(
             f"{API_BASE_URL}/users/me",
@@ -30,24 +39,16 @@ def status():
             timeout=8,
         )
         if response.status_code == 200:
-            console.print(Panel(
-                f"[green]✓[/green] Logged in as [bold]@{username}[/bold]\n"
-                f"[green]✓[/green] API reachable at [dim]{API_BASE_URL}[/dim]",
-                title="[bold]Clutch — Status[/bold]",
-                border_style="green",
-            ))
+            table.add_row("Token", "[green]Valid[/green]")
+            table.add_row("API", f"[green]Reachable[/green]  [dim]{API_BASE_URL}[/dim]")
         else:
-            console.print(Panel(
-                f"[yellow]~[/yellow] Logged in as [bold]@{username}[/bold] (token may be expired)\n"
-                f"[red]✗[/red] API returned {response.status_code}\n"
-                f"[dim]Try: clutch auth login[/dim]",
-                title="[bold]Clutch — Status[/bold]",
-                border_style="yellow",
-            ))
+            table.add_row("Token", f"[yellow]Expired ({response.status_code})[/yellow]")
+            table.add_row("Hint", "[dim]Run: clutch auth login[/dim]")
     except httpx.RequestError:
-        console.print(Panel(
-            f"[green]✓[/green] Logged in as [bold]@{username}[/bold]\n"
-            f"[red]✗[/red] API unreachable — check your connection",
-            title="[bold]Clutch — Status[/bold]",
-            border_style="yellow",
-        ))
+        table.add_row("Token", "[green]Saved[/green]")
+        table.add_row("API", "[red]Unreachable[/red]")
+
+    console.print(table)
+    console.print()
+    console.rule(style="dim")
+    console.print()

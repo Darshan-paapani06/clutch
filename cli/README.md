@@ -4,8 +4,6 @@
 
 ### *The CLI companion for Clutch — GitHub tracks your work. Clutch tracks you.*
 
-> Good things take time, So cli on PYPI is still in production.😭🤞
-<br></br>
 [![PyPI](https://img.shields.io/pypi/v/clutch-cli?style=for-the-badge&color=green)](https://pypi.org/project/clutch-cli)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](https://github.com/laypatel13/clutch/blob/main/LICENSE)
