@@ -29,7 +29,7 @@ export default function UserProfilePage() {
       <NavigationBar rightContent={
         <a href="/dashboard" className="btn-nb btn-ghost" style={{ fontSize: 'var(--text-sm)', padding: 'var(--space-2) var(--space-4)' }}>← Dashboard</a>
       } />
-      <div style={{ maxWidth: '620px', margin: '0 auto', padding: 'var(--space-14) var(--space-8)' }}>
+      <div className="page-container" style={{ maxWidth: '620px', margin: '0 auto', padding: 'var(--space-14) var(--space-8)' }}>
         <div className="section-label">Profile</div>
         <div className="nb-panel-purple" style={{ padding: 'var(--space-7)' }}>
           <div style={{ display: 'flex', gap: 'var(--space-5)', alignItems: 'flex-start' }}>

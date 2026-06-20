@@ -19,7 +19,7 @@ export default function LandingPage() {
         </>
       } />
 
-      <main style={{ flex: 1, maxWidth: '1080px', margin: '0 auto', width: '100%', padding: 'var(--space-18) var(--space-8) var(--space-14)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-10)', alignItems: 'start' }}>
+      <main className="hero-grid page-container" style={{ flex: 1, maxWidth: '1080px', margin: '0 auto', width: '100%', padding: 'var(--space-18) var(--space-8) var(--space-14)' }}>
 
         {/* LEFT */}
         <div>
@@ -94,14 +94,14 @@ export default function LandingPage() {
           </div>
 
           {/* FEATURES below terminal */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-3)', marginTop: 'var(--space-4)' }}>
+          <div className="feature-grid" style={{ marginTop: 'var(--space-4)' }}>
             {[
               { icon: <Activity size={16} />, label: 'Streaks', color: 'var(--accent-purple)' },
               { icon: <Zap size={16} />, label: 'Patterns', color: 'var(--accent-pink)' },
               { icon: <Terminal size={16} />, label: 'AI Insight', color: 'var(--accent-cyan)' },
             ].map(f => (
               <div key={f.label} className="nb-card" style={{ padding: 'var(--space-4)', display: 'flex', alignItems: 'center', gap: 'var(--space-2)', borderColor: f.color, boxShadow: `3px 3px 0px ${f.color}` }}>
-                <span style={{ color: f.color }}>{f.icon}</span>
+                <span>{f.icon}</span>
                 <span style={{ fontFamily: 'var(--font-chrome)', fontSize: 'var(--text-base)', fontWeight: 600, color: 'var(--text-primary)' }}>{f.label}</span>
               </div>
             ))}
@@ -109,7 +109,7 @@ export default function LandingPage() {
         </div>
       </main>
 
-      <footer style={{ borderTop: '2px solid var(--border)', padding: 'var(--space-4) var(--space-8)', display: 'flex', justifyContent: 'space-between', background: 'var(--bg-card)' }}>
+      <footer style={{ borderTop: '2px solid var(--border)', padding: 'var(--space-4) var(--space-8)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--space-2)', background: 'var(--bg-card)' }}>
         <span style={{ fontFamily: 'var(--font-chrome)', fontSize: 'var(--text-sm)', color: 'var(--text-muted)' }}>© 2026 Clutch — MIT License</span>
         <a href={GITHUB_REPOSITORY_URL} target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-chrome)', fontSize: 'var(--text-sm)', color: 'var(--accent-purple)', textDecoration: 'none' }}>Star on GitHub ★</a>
       </footer>

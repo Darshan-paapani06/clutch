@@ -48,11 +48,11 @@
   --text-md: 15px;
   --text-lg: 16px;
   --text-xl: 18px;
-  --text-2xl: 22px;
-  --text-3xl: 28px;
-  --text-4xl: 32px;
-  --text-5xl: 40px;
-  --text-6xl: 48px;
+  --text-2xl: clamp(19px, 4vw, 22px);
+  --text-3xl: clamp(22px, 5vw, 28px);
+  --text-4xl: clamp(24px, 6vw, 32px);
+  --text-5xl: clamp(28px, 7vw, 40px);
+  --text-6xl: clamp(32px, 8vw, 48px);
 
   /* LINE HEIGHT SCALE */
   --leading-tight: 1.15;
@@ -157,10 +157,12 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 12px 32px;
+  padding: var(--space-3) var(--space-8);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: var(--space-2);
   box-shadow: 0 2px 0px var(--border);
 }
 
@@ -210,3 +212,51 @@ body {
 
 /* NOTEBOOK LINES on panels */
 .lined { background-image: repeating-linear-gradient(transparent, transparent 27px, var(--border-light) 27px, var(--border-light) 28px); background-size: 100% 28px; }
+
+/* RESPONSIVE LAYOUT — landing hero, feature grid, nav */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 860px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --space-18: var(--space-9);
+    --space-14: var(--space-8);
+  }
+  .page-container {
+    padding-left: var(--space-5) !important;
+    padding-right: var(--space-5) !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  .nb-nav {
+    padding: var(--space-3) var(--space-5);
+  }
+}
+
+@media (max-width: 400px) {
+  .btn-nb {
+    font-size: var(--text-xs);
+    padding: var(--space-2) var(--space-3);
+  }
+}
