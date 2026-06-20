@@ -35,8 +35,8 @@ export default function LandingPage() {
             Momentum.
           </h1>
 
-          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.8', marginBottom: '32px', maxWidth: '400px' }}>
-            Commit streaks, activity patterns, and AI-powered weekly insights — all in one place.
+          <p style={{ fontFamily: 'var(--font-ui)', fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.8', marginBottom: '32px', maxWidth: '500px' }}>
+            Lower the friction between developer and their personal growth.
           </p>
 
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '32px' }}>
@@ -49,11 +49,9 @@ export default function LandingPage() {
           </div>
 
           {/* MINI STAT ROW */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--border)', border: '2px solid var(--border)', boxShadow: 'var(--shadow)' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(1, 1fr)', gap: '1px', background: 'var(--border)', border: '2px solid var(--border)', boxShadow: 'var(--shadow)' }}>
             {[
-              { label: 'Commits tracked', value: 'Daily' },
-              { label: 'AI powered', value: 'Groq' },
-              { label: 'CLI available', value: 'Yes' },
+              { label: 'access clutch in your terminal', value: 'Command Line Interface' },
             ].map(s => (
               <div key={s.label} style={{ background: 'var(--bg-card)', padding: '12px 14px' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '2px' }}>{s.value}</div>
@@ -63,7 +61,7 @@ export default function LandingPage() {
           </div>
 
           <div style={{ marginTop: '20px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)', padding: '10px 14px', background: 'var(--bg-panel)', border: '1px solid var(--border-light)' }}>
-            $ pip install clutch-dev
+            $ pip install clutch-cli
           </div>
         </div>
 
