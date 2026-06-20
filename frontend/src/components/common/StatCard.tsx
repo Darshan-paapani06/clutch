@@ -18,8 +18,8 @@ const accentMap = {
 export default function StatCard({ label, value, icon, color = 'purple' }: StatCardProps) {
   const accent = accentMap[color]
   return (
-    <div className="nb-card" style={{ padding: '16px', borderColor: accent, boxShadow: `4px 4px 0px ${accent}` }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+    <div className="nb-card" style={{ padding: 'var(--space-4)', borderColor: accent, boxShadow: `4px 4px 0px ${accent}` }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', marginBottom: 'var(--space-2)' }}>
         <span style={{ color: accent }}>{icon}</span>
         <span className="stat-label">{label}</span>
       </div>
