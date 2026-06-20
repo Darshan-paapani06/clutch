@@ -12,7 +12,7 @@
 
 ---
 
-`clutch-cli` is the terminal companion for [Clutch](https://clutch-laypatel.netlify.app) — an open-source AI-powered developer activity dashboard. Get your GitHub streaks, stats, coding patterns, and AI insights without leaving your terminal.
+`clutch-cli` is the terminal companion for [Clutch](https://clutch-woad.vercel.app) — an open-source AI-powered developer activity dashboard. Get your GitHub streaks, stats, coding patterns, and AI insights without leaving your terminal.
 
 ## Installation
 
@@ -24,7 +24,7 @@ pip install clutch-cli
 
 ```bash
 # Login via GitHub (opens browser automatically, no copy-paste needed)
-clutch auth login
+clutch login
 
 # Check your streak
 clutch streak
@@ -40,9 +40,9 @@ clutch insight
 
 | Command | Description |
 |---|---|
-| `clutch auth login` | Login via GitHub OAuth (fully automatic) |
-| `clutch auth logout` | Logout and clear saved credentials |
-| `clutch auth whoami` | Show currently logged-in user |
+| `clutch login` | Login via GitHub OAuth (fully automatic) |
+| `clutch logout` | Logout and clear saved credentials |
+| `clutch whoami` | Show currently logged-in user |
 | `clutch streak` | Current and longest commit streak |
 | `clutch stats` | Activity stats — commits, PRs, issues, active days |
 | `clutch stats --days 7` | Stats for a custom time range |
@@ -54,10 +54,10 @@ clutch insight
 
 ## How Login Works
 
-`clutch auth login` spins up a temporary local server on port `9876`, opens GitHub OAuth in your browser, and automatically captures the token when GitHub redirects back. No copy-pasting required.
+`clutch login` spins up a temporary local server on port `9876`, opens GitHub OAuth in your browser, and automatically captures the token when GitHub redirects back. No copy-pasting required.
 
 ```
-$ clutch auth login
+$ clutch login
 
 ⚡ Clutch Login
 Opening GitHub in your browser...
@@ -75,12 +75,12 @@ By default the CLI talks to the hosted Clutch API. To point it at a local backen
 
 ```bash
 export CLUTCH_API_URL=http://localhost:8000
-clutch auth login
+clutch login
 ```
 
 ## Links
 
-- 🌐 [Live Dashboard](https://clutch-laypatel.netlify.app)
+- 🌐 [Live Dashboard](https://clutch-woad.vercel.app)
 - 📖 [Full Documentation](https://github.com/laypatel13/clutch)
 - 🐛 [Report a Bug](https://github.com/laypatel13/clutch/issues)
 

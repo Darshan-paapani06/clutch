@@ -5,7 +5,7 @@
 ### *AI-Powered Developer Activity & Productivity Dashboard*
 
 [![GitHub](https://img.shields.io/badge/Track-Developer_Stats-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/laypatel/clutch)
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit-4285F4?style=for-the-badge)](https://clutch-laypatel.netlify.app)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit-4285F4?style=for-the-badge)](https://clutch-woad.vercel.app)
 
 <br/>
 
@@ -22,7 +22,7 @@
 
 <br/>
 
-[🌐 Live Demo](https://clutch-laypatel.netlify.app) · [📖 API Docs](https://clutch-api.onrender.com) · [💻 CLI Tool](#-cli-setup) · [🐛 Report Bug](https://github.com/laypatel/clutch/issues) · [✨ Request Feature](https://github.com/laypatel/clutch/issues)
+[🌐 Live Demo](https://clutch-woad.vercel.app) · [📖 API Docs](https://clutch-api.onrender.com) · [💻 CLI Tool](#-cli-setup) · [🐛 Report Bug](https://github.com/laypatel/clutch/issues) · [✨ Request Feature](https://github.com/laypatel/clutch/issues)
 
 </div>
 
@@ -180,7 +180,7 @@ Clutch uses a modern, decoupled architecture designed for speed and reliability.
 - A GitHub OAuth app
 - A Groq API key
 
-### 1. Create a GitHub OAuth App
+### 1️⃣ Create a GitHub OAuth App
 
 Navigate to [GitHub Developer Settings](https://github.com/settings/developers) and create a new OAuth app:
 
@@ -189,14 +189,15 @@ Navigate to [GitHub Developer Settings](https://github.com/settings/developers) 
 
 Copy the **Client ID** and **Client Secret**.
 
-### 2. Backend Setup
+### 2️⃣ Backend Setup
 
 ```bash
 cd backend
 ```
 ```bash
 python -m venv venv
-
+```
+```bash
 source venv/bin/activate        # Windows: venv\Scripts\activate
 ```
 ```bash
@@ -208,25 +209,25 @@ cp .env.example .env
 
 **Configure `.env`**:
 ```text
-DATABASE_URL=sqlite:///./clutch.db
+DATABASE_URL = sqlite:///./clutch.db
 
-SECRET_KEY=your-secret-key
+SECRET_KEY = your-secret-key
 
-ALGORITHM=HS256
+ALGORITHM = HS256
 
-ACCESS_TOKEN_EXPIRE_MINUTES=10080
+ACCESS_TOKEN_EXPIRE_MINUTES = 10080
 
-GITHUB_CLIENT_ID=your_client_id
+GITHUB_CLIENT_ID = your_client_id
 
-GITHUB_CLIENT_SECRET=your_client_secret
+GITHUB_CLIENT_SECRET = your_client_secret
 
-GITHUB_REDIRECT_URI=http://localhost:8000/auth/github/callback
+GITHUB_REDIRECT_URI = http://localhost:8000/auth/github/callback
 
-GROQ_API_KEY=your_groq_key
+GROQ_API_KEY = your_groq_key
 
-FRONTEND_URL=http://localhost:5173
+FRONTEND_URL = http://localhost:5173
 
-ENVIRONMENT=development
+ENVIRONMENT = development
 ```
 
 **Start the Backend**:
@@ -235,7 +236,7 @@ uvicorn app.main:app --reload
 ```
 The backend will run at `http://localhost:8000`. Documentation is available at `http://localhost:8000/docs`.
 
-### 3. Frontend Setup
+### 3️⃣ Frontend Setup
 
 ```bash
 cd frontend
@@ -258,7 +259,7 @@ npm run dev
 ```
 The frontend will run at `http://localhost:5173`.
 
-### 4. CLI Setup
+### 4️⃣ CLI Setup
 
 ```bash
 pip install clutch-cli
@@ -274,7 +275,7 @@ pip install -e .
 **Login** (fully automatic — no token copy-pasting):
 
 ```bash
-clutch auth login
+clutch login
 ```
 
 Your browser opens, you authorize on GitHub, and the terminal automatically captures the token. Done.
@@ -283,16 +284,16 @@ To point the CLI at a local backend instead of the hosted API:
 
 ```bash
 export CLUTCH_API_URL=http://localhost:8000
-clutch auth login
+clutch login
 ```
 
 **Available Commands**:
 
 | Command | Description |
 |---|---|
-| `clutch auth login` | Login via GitHub OAuth (automatic) |
-| `clutch auth logout` | Logout and clear credentials |
-| `clutch auth whoami` | Show logged-in user |
+| `clutch login` | Login via GitHub OAuth (automatic) |
+| `clutch logout` | Logout and clear credentials |
+| `clutch whoami` | Show logged-in user |
 | `clutch streak` | Current and longest commit streak |
 | `clutch stats [--days N]` | Activity stats for last N days |
 | `clutch repos` | Most recently active repositories |
