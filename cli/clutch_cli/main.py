@@ -1,7 +1,12 @@
 import typer
-from clutch_cli import auth, streak, stats, insight, repos, patterns, status
 
-__version__ = "0.2.0"
+from clutch_cli.authentication import login, logout, whoami
+from clutch_cli.activity import streak, stats, patterns
+from clutch_cli.repositories import list as repositories_list
+from clutch_cli.insights import weekly
+from clutch_cli.system import status
+
+__version__ = "0.3.0"
 
 app = typer.Typer(
     name="clutch",
@@ -30,13 +35,24 @@ def main(
     pass
 
 
-app.add_typer(auth.app, name="auth")
-app.command()(streak.streak)
-app.command()(stats.stats)
-app.command()(insight.insight)
-app.command()(repos.repos)
-app.command()(patterns.patterns)
-app.command()(status.status)
+# Authentication
+app.command(name="login")(login.login)
+app.command(name="logout")(logout.logout)
+app.command(name="whoami")(whoami.whoami)
+
+# Activity
+app.command(name="streak")(streak.streak)
+app.command(name="stats")(stats.stats)
+app.command(name="patterns")(patterns.patterns)
+
+# Repositories
+app.command(name="repos")(repositories_list.repos)
+
+# Insights
+app.command(name="insight")(weekly.insight)
+
+# System
+app.command(name="status")(status.status)
 
 
 if __name__ == "__main__":
