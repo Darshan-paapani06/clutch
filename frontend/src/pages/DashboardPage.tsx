@@ -6,13 +6,15 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recha
 import NavigationBar from '../components/layout/NavigationBar'
 import StatCard from '../components/common/StatCard'
 import LoadingScreen from '../components/common/LoadingScreen'
-import type { ActivitySummary, StreakSummary, WeeklyInsight } from '../types/dashboard.types'
+import Heatmap from '../components/common/Heatmap'
+import type { ActivitySummary, StreakSummary, WeeklyInsight, HeatmapData } from '../types/dashboard.types'
 
 export default function DashboardPage() {
   const { user, logout } = useAuthentication()
   const [activity, setActivity] = useState<ActivitySummary | null>(null)
   const [streak, setStreak] = useState<StreakSummary | null>(null)
   const [insight, setInsight] = useState<WeeklyInsight | null>(null)
+  const [heatmap, setHeatmap] = useState<HeatmapData | null>(null)
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
 
@@ -28,6 +30,7 @@ export default function DashboardPage() {
       setActivity(activityRes.data)
       setStreak(streakRes.data)
       httpClient.get('/insights/weekly').then(r => setInsight(r.data)).catch(() => {})
+      httpClient.get('/github/heatmap').then(r => setHeatmap(r.data)).catch(() => {})
     } catch (e) { console.error(e) }
     finally { setLoading(false) }
   }
@@ -106,6 +109,17 @@ export default function DashboardPage() {
               No activity data — click Sync to load.
             </p>
           )}
+        </div>
+
+        {/* HEATMAP */}
+        <div className="nb-card" style={{ padding: 'var(--space-6)', marginBottom: 'var(--space-4)', borderColor: 'var(--accent-yellow)', boxShadow: '5px 5px 0px var(--accent-yellow)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-5)' }}>
+            <span className="section-label" style={{ marginBottom: 0 }}>Contribution Heatmap</span>
+            <span className="tag tag-outline">
+              {heatmap ? `${heatmap.total_contributions} in the last year` : 'Last 12 months'}
+            </span>
+          </div>
+          <Heatmap data={heatmap} />
         </div>
 
         {/* AI INSIGHT */}
