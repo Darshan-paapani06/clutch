@@ -18,6 +18,18 @@ export interface StreakSummary {
   total_active_days: number
 }
 
+export interface HeatmapDay {
+  date: string
+  count: number
+}
+
+export interface HeatmapData {
+  username: string
+  total_contributions: number
+  max_count: number
+  days: HeatmapDay[]
+}
+
 export interface WeeklyInsightStats {
   total_commits: number
   total_prs: number

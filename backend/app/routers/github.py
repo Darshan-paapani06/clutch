@@ -28,6 +28,15 @@ async def get_streak(
     return await service.get_streak(current_user.username)
 
 
+@router.get("/heatmap")
+async def get_heatmap(
+    current_user: User = Depends(get_current_user),
+):
+    """Get the user's full 12-month contribution heatmap."""
+    service = GitHubService(current_user.github_access_token)
+    return await service.get_heatmap(current_user.username)
+
+
 @router.get("/languages")
 async def get_languages(
     current_user: User = Depends(get_current_user),

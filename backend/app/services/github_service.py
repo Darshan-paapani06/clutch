@@ -71,6 +71,59 @@ class GitHubService:
             "active_days": len(daily),
         }
 
+    async def get_heatmap(self, username: str) -> dict:
+        """Fetch a full 12-month contribution calendar for the heatmap view.
+
+        Unlike get_activity(), this keeps every day including zero-activity
+        days, since a GitHub-style heatmap needs to render empty squares too.
+        """
+        from datetime import datetime, timedelta, timezone
+        since = (datetime.now(timezone.utc) - timedelta(days=365)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        query = """
+        query($username: String!, $from: DateTime!) {
+        user(login: $username) {
+            contributionsCollection(from: $from) {
+            contributionCalendar {
+                totalContributions
+                weeks {
+                contributionDays {
+                    date
+                    contributionCount
+                }
+                }
+            }
+            }
+        }
+        }
+        """
+
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://api.github.com/graphql",
+                headers=self.headers,
+                json={"query": query, "variables": {"username": username, "from": since}},
+            )
+            data = response.json()
+
+        collection = data["data"]["user"]["contributionsCollection"]
+        calendar = collection["contributionCalendar"]
+
+        days = []
+        max_count = 0
+        for week in calendar["weeks"]:
+            for day in week["contributionDays"]:
+                count = day["contributionCount"]
+                max_count = max(max_count, count)
+                days.append({"date": day["date"], "count": count})
+
+        return {
+            "username": username,
+            "total_contributions": calendar["totalContributions"],
+            "max_count": max_count,
+            "days": days,
+        }
+
     async def get_streak(self, username: str) -> dict:
         """Calculate current and longest commit streak."""
         activity = await self.get_activity(username, days=365)
