@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
@@ -11,23 +11,34 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     github_id = Column(Integer, unique=True, index=True, nullable=False)
     username = Column(String(100), unique=True, index=True, nullable=False)
-    name = Column(String(200), nullable=True)
-    email = Column(String(200), nullable=True)
-    avatar_url = Column(String(500), nullable=True)
-    bio = Column(Text, nullable=True)
-    location = Column(String(200), nullable=True)
-    public_repos = Column(Integer, default=0)
-    followers = Column(Integer, default=0)
-    following = Column(Integer, default=0)
+
+    # Profile info
+    name = Column(String(200))
+    email = Column(String(200), index=True)  # indexed for faster lookups
+    avatar_url = Column(String(500))
+    bio = Column(Text)
+    location = Column(String(200))
+
+    # GitHub stats
+    public_repos = Column(Integer, default=0, nullable=False)
+    followers = Column(Integer, default=0, nullable=False)
+    following = Column(Integer, default=0, nullable=False)
 
     # OAuth tokens
-    github_access_token = Column(String(500), nullable=True)
+    github_access_token = Column(String(500))
 
     # App fields
-    is_active = Column(Boolean, default=True)
-    is_public = Column(Boolean, default=True)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    is_active = Column(Boolean, default=True, nullable=False)
+    is_public = Column(Boolean, default=True, nullable=False)
+
+    # Timestamps
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
-    last_synced_at = Column(DateTime(timezone=True), nullable=True)
-    activities = relationship("DailyActivity", back_populates="user")
-    weekly_insights = relationship("WeeklyInsight", back_populates="user")
+    last_synced_at = Column(DateTime(timezone=True))
+
+    # Relationships
+    activities = relationship("DailyActivity", back_populates="user", cascade="all, delete-orphan")
+    weekly_insights = relationship("WeeklyInsight", back_populates="user", cascade="all, delete-orphan")
+
+    def __repr__(self):
+        return f"<User(id={self.id}, username='{self.username}', email='{self.email}')>"
