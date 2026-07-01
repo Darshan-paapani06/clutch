@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚙️ Clutch
+# ⚙️ DevPulse
 
 ### *AI-Powered Developer Activity & Productivity Dashboard*
 
@@ -18,7 +18,7 @@
 
 <br/>
 
-**Clutch** — *the ultimate developer companion* — is an open-source dashboard that connects directly to your GitHub to visualize your coding journey. It tracks commit streaks, identifies activity patterns, and provides AI-powered weekly insights to help you understand your productivity better than ever before.
+**DevPulse** — *the ultimate developer companion* — is an open-source dashboard that connects directly to your GitHub to visualize your coding journey. It tracks commit streaks, identifies activity patterns, and provides AI-powered weekly insights to help you understand your productivity better than ever before.
 
 <br/>
 
